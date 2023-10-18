@@ -1,16 +1,22 @@
+import { useState } from 'react';
 import './NewNoteForm.css';
 
-export default function NewNoteForm() {
+export default function NewNoteForm({ handleAddNote }) {
+    const [newNote, setNewNote] = useState({
+        text: '',
+        createdAt: ''
+    })
 
-    async function handleSubmit() {
-        alert('clicked');
+    async function handleSubmit(e) {
+        e.preventDefault();
+        handleAddNote(newNote);
     }
 
     return (
-        <div className='NewNoteForm'>
+        <form onSubmit={handleSubmit} className='NewNoteForm'>
             <label htmlFor="text">Enter a Note</label>
-            <input id='text' name='text'></input>
-            <button onClick={handleSubmit}>Add Note</button>
-        </div>
+            <textarea id='text' name='text' cols="50" rows="4" onChange={(e) => setNewNote({ [e.target.name]: e.target.value, createdAt: null })}></textarea>
+            <button>Add Note</button>
+        </form >
     );
 }

@@ -3,7 +3,9 @@ const Schema = mongoose.Schema;
 
 const noteSchema = new Schema({
     text: { type: String, required: true },
-    user: { type: isObjectIdOrHexString, required: true }
+    user: { type: Schema.Types.ObjectId, required: true } // Use Schema.Types.ObjectId
 }, {
     timestamps: true
 });
+
+module.exports = mongoose.model('Note', noteSchema);
