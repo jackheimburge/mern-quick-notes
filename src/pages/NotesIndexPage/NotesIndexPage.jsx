@@ -1,15 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewNoteForm from "../../components/NewNoteForm/NewNoteForm";
 import * as notesAPI from '../../utilities/notes-api';
 
 
-export default function NotesIndex() {
+export default function NotesIndexPage() {
     const [notes, setNotes] = useState([]);
 
+    useEffect(function () {
+        async function getNotes() {
+            const allNotes = await notesAPI.getAll();
+            setNotes([...allNotes])
+        }
+        getNotes();
+    }, [])
+
     async function handleAddNote(newNoteData) {
-        const allUserNotes = await notesAPI.addNote(newNoteData);
-        console.log(allUserNotes);
-        setNotes([...allUserNotes]);
+        const note = await notesAPI.addNote(newNoteData);
+        setNotes([...notes, note]);
     }
     return (
         <>
