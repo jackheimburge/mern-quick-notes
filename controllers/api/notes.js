@@ -2,7 +2,8 @@ const Note = require('../../models/note');
 
 module.exports = {
     create,
-    getAll
+    getAll,
+    delete: deleteNote
 }
 
 async function create(req, res) {
@@ -14,4 +15,9 @@ async function create(req, res) {
 async function getAll(req, res) {
     const allNotes = await Note.find({ user: req.user._id });
     res.json(allNotes);
+}
+
+async function deleteNote(req, res) {
+    const deletedNote = await Note.deleteOne(req.body);
+    res.json(deletedNote);
 }

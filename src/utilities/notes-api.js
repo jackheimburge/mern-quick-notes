@@ -8,3 +8,7 @@ export function addNote(newNoteData) {
 export function getAll() {
     return sendRequest(BASE_URL);
 }
+
+export function deleteNote(note) {
+    return sendRequest(`${BASE_URL}/${note._id}`, 'DELETE', note);
+}
